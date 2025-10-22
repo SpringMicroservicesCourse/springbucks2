@@ -6,12 +6,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.Type;
 import org.joda.money.Money;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import java.io.Serializable;
+import jakarta.persistence.Convert;
 
 @Entity
 @Table(name = "T_COFFEE")
@@ -21,8 +20,8 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Coffee extends BaseEntity implements Serializable {
+public class Coffee extends BaseEntity{
     private String name;
-    @jakarta.persistence.Convert(converter = MoneyConverter.class)
+    @Convert(converter = MoneyConverter.class)
     private Money price;
 }
