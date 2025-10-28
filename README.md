@@ -1,4 +1,6 @@
-# SpringBucks Coffee Shop Service System ⚡
+# springbucks2
+
+> Spring MVC coffee shop service with HandlerInterceptor performance monitoring and comprehensive RESTful API
 
 [![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
@@ -6,51 +8,40 @@
 [![H2 Database](https://img.shields.io/badge/H2%20Database-2.2.224-yellow.svg)](https://www.h2database.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Project Overview
+A comprehensive demonstration of using **Spring MVC** with custom **HandlerInterceptor** for performance monitoring, featuring coffee shop management system, RESTful API design, JPA data persistence, caching mechanism, and request performance tracking.
 
-SpringBucks is a coffee shop management system built on Spring Boot 3.x, providing coffee product management, order processing, and RESTful API services. This project demonstrates modern Spring Boot microservice architecture best practices, including complete data persistence, caching mechanisms, and performance monitoring.
+## Features
 
-### 🎯 Core Features
-- **Coffee Product Management** - Create, query, and update coffee product information
-- **Order Processing System** - Create orders and track order status
-- **RESTful API** - Comprehensive HTTP API interface
-- **Performance Monitoring** - Built-in request performance interceptor
-- **Data Persistence** - Database operations using JPA/Hibernate
-- **Caching Mechanism** - Integrated Spring Cache to enhance system performance
+- Spring MVC with HandlerInterceptor (NOT simple Controller)
+- Performance monitoring with custom interceptor
+- Request lifecycle tracking (preHandle, postHandle, afterCompletion)
+- ThreadLocal-based request timing
+- Coffee product management and order processing
+- RESTful API with comprehensive endpoints
+- JPA/Hibernate data persistence
+- Spring Cache mechanism for performance optimization
+- Money type serialization/deserialization (TWD currency)
+- Bean Validation for data integrity
 
-### 💡 Why Choose This Project?
-- **Modern Technology Stack** - Built with Spring Boot 3.x + Java 21 + Jakarta EE
-- **Complete Feature Showcase** - Covers core functionalities including Web, JPA, Cache, Validation, etc.
-- **Best Practices** - Follows Spring Boot official recommended project structure and configuration
-- **Easy to Learn** - Clear code structure with comprehensive comments, suitable for learning Spring Boot development
-
-### 🚀 Project Highlights
-
-- **Layered Architecture Design** - Clear separation of Controller, Service, and Repository layers
-- **Data Validation Mechanism** - Uses Bean Validation to ensure data correctness
-- **Custom Type Conversion** - Integrates Joda Money for currency calculations
-- **Performance Optimization** - Built-in caching and performance monitoring mechanisms
-- **Request Interceptor** - Implements HandlerInterceptor for performance monitoring and logging
-- **Cross-platform Support** - Uses H2 in-memory database, no additional installation required
-
-## Technology Stack
+## Tech Stack
 
 ### Core Frameworks
-- **Spring Boot 3.4.5** - Modern Java application framework
-- **Spring Data JPA** - Data persistence and ORM framework
-- **Spring Web MVC** - Web application development framework
-- **Spring Cache** - Cache abstraction layer and implementation
+- **Spring Boot 3.4.5** - Microservices framework
+- **Spring MVC** - Web application framework
+- **Spring Data JPA** - Data persistence layer
+- **Hibernate 6.x** - ORM framework
 
 ### Database & Tools
-- **H2 Database** - Lightweight in-memory database
-- **Hibernate 6** - JPA implementation, supports Jakarta EE
-- **Joda Money** - Currency calculation and processing library
+- **H2 Database** - In-memory database
+- **Joda Money 2.0.2** - Money handling
+- **Jackson** - JSON/XML serialization
+- **Bean Validation** - Data validation
 
-### Development Tools & Utilities
-- **Lombok** - Reduces boilerplate code, improves development efficiency
-- **Jackson** - JSON/XML serialization and deserialization
-- **Bean Validation** - Data validation framework
-- **Apache Commons Lang3** - Common utility library
+### Development Tools & Libraries
+- **Lombok** - Reduce boilerplate code
+- **Apache Commons Lang3** - Utility library
+- **Maven 3.8+** - Build tool
+- **Java 21** - Development environment
 
 ## Project Structure
 
@@ -59,232 +50,180 @@ springbucks2/
 ├── src/
 │   ├── main/
 │   │   ├── java/tw/fengqing/spring/springbucks/waiter/
-│   │   │   ├── WaiterServiceApplication.java      # Main application class
-│   │   │   ├── controller/          # Controller layer - HTTP request handling
+│   │   │   ├── WaiterServiceApplication.java      # Main application
+│   │   │   ├── controller/          # Controller layer
 │   │   │   │   ├── CoffeeController.java
 │   │   │   │   ├── CoffeeOrderController.java
-│   │   │   │   ├── PerformanceInteceptor.java     # Performance monitoring interceptor
+│   │   │   │   ├── PerformanceInteceptor.java     # Performance monitoring (KEY)
 │   │   │   │   └── request/         # Request objects
-│   │   │   ├── service/             # Service layer - Business logic
+│   │   │   │       ├── NewCoffeeRequest.java
+│   │   │   │       └── NewOrderRequest.java
+│   │   │   ├── service/             # Service layer
 │   │   │   │   ├── CoffeeService.java
 │   │   │   │   └── CoffeeOrderService.java
-│   │   │   ├── repository/          # Data access layer - Database operations
+│   │   │   ├── repository/          # Data access layer
 │   │   │   │   ├── CoffeeRepository.java
 │   │   │   │   └── CoffeeOrderRepository.java
-│   │   │   ├── model/               # Entity models - Data structure definition
+│   │   │   ├── model/               # Entity models
 │   │   │   │   ├── Coffee.java
 │   │   │   │   ├── CoffeeOrder.java
 │   │   │   │   ├── BaseEntity.java
 │   │   │   │   ├── OrderState.java
-│   │   │   │   └── MoneyConverter.java
-│   │   │   └── support/             # Support classes - Utilities and configuration
+│   │   │   │   └── MoneyConverter.java          # JPA Money converter
+│   │   │   └── support/             # Support utilities
 │   │   │       ├── MoneySerializer.java
 │   │   │       ├── MoneyDeserializer.java
 │   │   │       └── MoneyFormatter.java
 │   │   └── resources/
-│   │       ├── application.properties  # Application configuration
-│   │       ├── schema.sql              # Database schema
-│   │       ├── data.sql                # Initial data
-│   │       └── coffee.txt              # Coffee data file
-│   └── test/                        # Test code
-├── pom.xml                          # Maven project configuration
-└── README.md                        # Project documentation
+│   │       ├── application.properties            # Application config
+│   │       ├── schema.sql                        # Database schema
+│   │       ├── data.sql                          # Initial data
+│   │       └── coffee.txt                        # Coffee data file
+│   └── test/
+└── pom.xml
 ```
 
-## Quick Start
+## Getting Started
 
 ### Prerequisites
-- **Java 21** - Ensure JDK 21 or newer is installed
-- **Maven 3.6+** - Project build tool
-- **IDE Recommendation** - IntelliJ IDEA, Eclipse, or VS Code
+
+- **Java 21** - Development environment
+- **Maven 3.8+** - Build tool
+- **IDE** - IntelliJ IDEA or Eclipse
 
 ### Installation & Execution
 
-**1. Clone this repository:**
+**Step 1: Clone the repository**
+
 ```bash
 git clone <repository-url>
 cd springbucks2
 ```
 
-**2. Compile the project:**
+**Step 2: Compile the project**
+
 ```bash
 mvn clean compile
 ```
 
-**3. Run the application:**
+**Step 3: Run the application**
+
 ```bash
 mvn spring-boot:run
 ```
 
-**4. Verify service startup:**
+**Step 4: Verify service**
+
 ```bash
+# Test coffee endpoint
 curl http://localhost:8080/coffee/1
+
+# Expected: Coffee JSON response with performance log
 ```
 
-### Package & Deploy
-```bash
-# Build executable JAR file
-mvn clean package
+## Configuration
 
-# Run JAR file
-java -jar target/waiter-service-0.0.1-SNAPSHOT.jar
-```
+### Application Properties
 
-## API Usage Guide
-
-### Coffee Product Management
-
-#### Query All Coffees
-```bash
-GET /coffee/
-```
-
-#### Query Specific Coffee
-```bash
-GET /coffee/{id}
-```
-
-**Example Response:**
-```json
-{
-  "id": 1,
-  "createTime": "2025-10-28T10:39:00.812731+08:00",
-  "updateTime": "2025-10-28T10:39:00.812731+08:00",
-  "name": "espresso",
-  "price": 100.00
-}
-```
-
-#### Create New Coffee
-```bash
-POST /coffee/
-Content-Type: application/json
-
-{
-  "name": "Americano",
-  "price": 125.00
-}
-```
-
-### Order Management
-
-#### Create New Order
-```bash
-POST /order/
-Content-Type: application/json
-
-{
-  "customer": "John Doe",
-  "items": ["Espresso", "Latte"]
-}
-```
-
-#### Query Order
-```bash
-GET /order/{id}
-```
-
-## Advanced Configuration
-
-### Environment Variables
 ```properties
-# Database configuration (default uses H2 in-memory database)
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-
 # JPA configuration
 spring.jpa.hibernate.ddl-auto=none
-spring.jpa.show-sql=true
-spring.jpa.format-sql=true
-
-# Application configuration
-server.port=8080
-spring.jackson.time-zone=Asia/Taipei
-```
-
-### Configuration File Description
-
-#### application.properties Main Settings
-```properties
-# JPA configuration - Controls database structure generation
-spring.jpa.hibernate.ddl-auto=none
-
-# SQL logging - Display SQL statements during development
 spring.jpa.properties.hibernate.show_sql=true
 spring.jpa.properties.hibernate.format_sql=true
 
 # Error message display (development environment)
 server.error.include-message=always
 server.error.include-binding-errors=always
+
+# Server configuration
+server.port=8080
+
+# Jackson configuration
+spring.jackson.time-zone=Asia/Taipei
 ```
 
-### Cache Configuration
-The project has Spring Cache enabled, using in-memory cache by default. Can be customized as follows:
-```java
-@Cacheable("coffee")
-public Coffee getCoffeeById(Long id) {
-    // Cache logic
-}
-```
+**Configuration Details:**
+- `ddl-auto=none`: Database schema managed by schema.sql
+- `show_sql=true`: Display SQL statements for debugging
+- `format_sql=true`: Format SQL output
+- Error messages enabled for development (disable in production)
 
-## Spring MVC Interceptor Mechanism
+## HandlerInterceptor Deep Dive
 
-The project implements a custom performance monitoring interceptor for tracking request processing time and performance analysis.
+### What is HandlerInterceptor?
 
-### Interceptor Lifecycle
+`HandlerInterceptor` is a Spring MVC component that allows you to intercept HTTP requests and perform pre-processing and post-processing operations.
+
+**Three Key Methods:**
 ```java
 public interface HandlerInterceptor {
-    // Pre-processing before method execution
+    // 1. Before controller method execution
     boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler);
     
-    // Post-processing after method execution, before view rendering
-    void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView);
+    // 2. After controller method execution, before view rendering
+    void postHandle(HttpServletRequest request, HttpServletResponse response, 
+                   Object handler, ModelAndView modelAndView);
     
-    // Processing after entire request completion (including view rendering)
-    void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex);
+    // 3. After entire request completion (including view rendering)
+    void afterCompletion(HttpServletRequest request, HttpServletResponse response, 
+                        Object handler, Exception ex);
 }
 ```
 
-### Interceptor Configuration
+### Interceptor Registration
+
 ```java
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableCaching
 public class WaiterServiceApplication implements WebMvcConfigurer {
 
+    public static void main(String[] args) {
+        SpringApplication.run(WaiterServiceApplication.class, args);
+    }
+
+    /**
+     * Register custom interceptor
+     * Apply to all /coffee/* and /order/* endpoints
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new PerformanceInteceptor())
-                .addPathPatterns("/coffee/**")
-                .addPathPatterns("/order/**");
+                .addPathPatterns("/coffee/**")      // Apply to coffee endpoints
+                .addPathPatterns("/order/**");      // Apply to order endpoints
     }
 }
 ```
 
-### Performance Monitoring Interceptor Implementation
+### PerformanceInteceptor Implementation
+
 ```java
 @Slf4j
 public class PerformanceInteceptor implements HandlerInterceptor {
     private ThreadLocal<StopWatch> stopWatch = new ThreadLocal<>();
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
+                            Object handler) throws Exception {
         // Record request start time
         StopWatch sw = new StopWatch();
         stopWatch.set(sw);
         sw.start();
-        return true; // Return true to continue, false to terminate request
+        return true; // true: continue, false: terminate request
     }
     
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, 
+                          Object handler, ModelAndView modelAndView) throws Exception {
+        // Record controller completion time
         stopWatch.get().stop();
         stopWatch.get().start();
     }
     
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        // Calculate total processing time and log
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, 
+                               Object handler, Exception ex) throws Exception {
+        // Calculate total time and log performance metrics
         StopWatch sw = stopWatch.get();
         sw.stop();
         
@@ -312,107 +251,497 @@ public class PerformanceInteceptor implements HandlerInterceptor {
                 processingTime,
                 lastTaskTime);
         
-        stopWatch.remove();
+        stopWatch.remove(); // Clean up ThreadLocal to prevent memory leak
     }
 }
 ```
 
-**Example Log Output:**
+### Performance Log Analysis
+
+**Sample Log Output:**
 ```log
-2025-10-28T10:40:36.538+08:00  INFO 72109 --- [nio-8080-exec-2] t.f.s.s.w.c.PerformanceInteceptor        : /coffee/1;tw.fengqing.spring.springbucks.waiter.controller.CoffeeController.getById;200;-;86ms;86ms;0ms
+2025-10-28T10:40:36.538+08:00  INFO 72109 --- [nio-8080-exec-2] t.f.s.s.w.c.PerformanceInteceptor : 
+/coffee/1;tw.fengqing.spring.springbucks.waiter.controller.CoffeeController.getById;200;-;86ms;86ms;0ms
 ```
 
 **Log Field Explanation:**
-- `/coffee/1`: Request URL
-- `CoffeeController.getById`: Executed method
-- `200`: HTTP status code
-- `-`: No exception (displays exception class name if any)
-- `86ms`: Total time
-- `86ms`: Controller execution time
-- `0ms`: View rendering time
 
-### Interceptor Use Cases
-- **Permission Verification** - Check user permissions in `preHandle`
-- **Performance Monitoring** - Record request processing time and performance metrics
-- **Logging** - Record request details and processing results
-- **Cache Handling** - Update cache data in `postHandle`
-- **Exception Handling** - Unified exception handling in `afterCompletion`
+| Field | Value | Description |
+|-------|-------|-------------|
+| `/coffee/1` | Request URI | The requested endpoint |
+| `CoffeeController.getById` | Handler method | Executed controller method |
+| `200` | HTTP status | Response status code |
+| `-` | Exception | Exception class name (or `-` if none) |
+| `86ms` | Total time | Total request processing time |
+| `86ms` | Processing time | Controller execution time |
+| `0ms` | Rendering time | View rendering time (0 for REST API) |
 
-### Important Notes
-- **Async Requests** - Async processing won't execute `postHandle` and `afterCompletion`
-- **Interceptor Order** - Set execution order via `order()` method
-- **Path Matching** - Supports Ant-style path pattern matching
-- **Performance Impact** - Interceptors add minor performance overhead, use wisely
-- **ThreadLocal Cleanup** - Must call `remove()` to prevent memory leaks
+### Interceptor Execution Flow
 
-## Development Guide
+```
+HTTP Request
+    ↓
+1. preHandle() - Start timer
+    ↓
+2. Controller execution (e.g., CoffeeController.getById)
+    ↓
+3. postHandle() - Record controller completion
+    ↓
+4. View rendering (if any)
+    ↓
+5. afterCompletion() - Log performance metrics & cleanup
+    ↓
+HTTP Response
+```
 
-### Steps to Add New Features
-1. **Create Entity Model** - Define data structure in `model` package
-2. **Create Repository** - Define data access interface in `repository` package
-3. **Create Service** - Implement business logic in `service` package
-4. **Create Controller** - Define API endpoints in `controller` package
-5. **Write Tests** - Ensure functionality correctness
+### Key Implementation Details
 
-### Code Conventions
-- **Naming Convention** - Use camelCase, capitalize class names
-- **Documentation** - Add clear comments for important logic
-- **Layered Architecture** - Strictly follow Controller → Service → Repository call sequence
-- **Exception Handling** - Use unified exception handling mechanism
+**1. ThreadLocal Usage**
+```java
+private ThreadLocal<StopWatch> stopWatch = new ThreadLocal<>();
+```
+- Each thread has its own StopWatch instance
+- Prevents race conditions in concurrent requests
+- Must call `remove()` to prevent memory leaks
+
+**2. StopWatch Timing**
+```java
+sw.start();  // Start timing
+sw.stop();   // Stop timing
+sw.getTotalTimeMillis();  // Get elapsed time
+```
+
+**3. Handler Type Detection**
+```java
+if (handler instanceof HandlerMethod) {
+    // Extract controller class and method information
+}
+```
+
+## API Usage Guide
+
+### Coffee Management
+
+**Get all coffees:**
+```bash
+curl http://localhost:8080/coffee/
+```
+
+**Get specific coffee:**
+```bash
+curl http://localhost:8080/coffee/1
+```
+
+**Response:**
+```json
+{
+  "id": 1,
+  "createTime": "2025-10-28T10:39:00.812+08:00",
+  "updateTime": "2025-10-28T10:39:00.812+08:00",
+  "name": "espresso",
+  "price": 100.00
+}
+```
+
+**Create coffee:**
+```bash
+curl -X POST http://localhost:8080/coffee/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Americano",
+    "price": 125.00
+  }'
+```
+
+### Order Management
+
+**Create order:**
+```bash
+curl -X POST http://localhost:8080/order/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer": "John Doe",
+    "items": ["espresso", "latte"]
+  }'
+```
+
+**Get order:**
+```bash
+curl http://localhost:8080/order/1
+```
+
+## Interceptor Use Cases
+
+### 1. Performance Monitoring
+
+**Current Implementation:**
+- Track request processing time
+- Identify slow endpoints
+- Log performance metrics
+
+**Extension:**
+```java
+@Override
+public void afterCompletion(...) {
+    long totalTime = sw.getTotalTimeMillis();
+    
+    // Alert if request takes too long
+    if (totalTime > 1000) {
+        log.warn("Slow request detected: {} took {}ms", 
+                request.getRequestURI(), totalTime);
+    }
+}
+```
+
+### 2. Authentication & Authorization
+
+```java
+@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
+                        Object handler) {
+    String token = request.getHeader("Authorization");
+    
+    if (token == null || !isValidToken(token)) {
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return false;  // Terminate request
+    }
+    
+    return true;  // Continue processing
+}
+```
+
+### 3. Request Logging
+
+```java
+@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
+                        Object handler) {
+    log.info("Incoming request: {} {} from {}", 
+            request.getMethod(),
+            request.getRequestURI(),
+            request.getRemoteAddr());
+    return true;
+}
+```
+
+### 4. Response Modification
+
+```java
+@Override
+public void postHandle(HttpServletRequest request, HttpServletResponse response, 
+                      Object handler, ModelAndView modelAndView) {
+    // Add custom headers
+    response.addHeader("X-Custom-Header", "Custom Value");
+    
+    // Modify model data
+    if (modelAndView != null) {
+        modelAndView.addObject("timestamp", System.currentTimeMillis());
+    }
+}
+```
+
+### 5. Cache Control
+
+```java
+@Override
+public void afterCompletion(HttpServletRequest request, HttpServletResponse response, 
+                           Object handler, Exception ex) {
+    // Invalidate cache after POST/PUT/DELETE
+    if ("POST".equals(request.getMethod()) || 
+        "PUT".equals(request.getMethod()) || 
+        "DELETE".equals(request.getMethod())) {
+        cacheService.invalidate(request.getRequestURI());
+    }
+}
+```
+
+## HandlerInterceptor vs Filter
+
+| Feature | HandlerInterceptor | Servlet Filter |
+|---------|-------------------|----------------|
+| Framework | Spring MVC | Java Servlet API |
+| Handler Access | ✅ Yes (HandlerMethod) | ❌ No |
+| Execution Scope | After DispatcherServlet | Before DispatcherServlet |
+| Spring Context | ✅ Full access | ⚠️ Limited |
+| Use Case | MVC-specific logic | General request/response processing |
+| Exception Handling | ✅ Can access controller exceptions | ❌ Cannot |
+| Performance | Slightly slower | Faster |
+
+**When to Use:**
+- **HandlerInterceptor**: MVC-specific concerns (authentication, authorization, performance monitoring)
+- **Filter**: General concerns (compression, encryption, CORS, encoding)
+
+## Best Practices
+
+### 1. ThreadLocal Cleanup
+
+**⚠️ Always clean up ThreadLocal:**
+```java
+@Override
+public void afterCompletion(...) {
+    try {
+        // Your logic
+    } finally {
+        stopWatch.remove();  // Critical: prevent memory leak
+    }
+}
+```
+
+### 2. Interceptor Order
+
+```java
+@Override
+public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new AuthenticationInterceptor())
+            .order(1);  // Execute first
+    
+    registry.addInterceptor(new PerformanceInteceptor())
+            .order(2);  // Execute second
+}
+```
+
+### 3. Path Pattern Matching
+
+```java
+registry.addInterceptor(interceptor)
+        .addPathPatterns("/api/**")        // All under /api
+        .excludePathPatterns("/api/public/**")  // Except /api/public
+        .excludePathPatterns("/api/health");    // Except /api/health
+```
+
+### 4. Async Request Handling
+
+**⚠️ Important: Async requests don't execute `postHandle` and `afterCompletion`**
+
+```java
+@GetMapping("/async")
+public CompletableFuture<String> asyncEndpoint() {
+    // postHandle and afterCompletion won't be called
+    return CompletableFuture.completedFuture("result");
+}
+```
+
+### 5. Exception Handling
+
+```java
+@Override
+public void afterCompletion(..., Exception ex) {
+    if (ex != null) {
+        log.error("Request failed: {} - {}", 
+                request.getRequestURI(), 
+                ex.getMessage());
+        
+        // Send to monitoring system
+        monitoringService.recordError(ex);
+    }
+}
+```
+
+## Testing
+
+### Unit Test Example
+
+```java
+@SpringBootTest
+class WaiterServiceApplicationTests {
+
+    @Test
+    void contextLoads() {
+        // Verify application context loads successfully
+    }
+}
+```
+
+### Test Performance Interceptor
+
+```bash
+# Make a request and observe logs
+curl http://localhost:8080/coffee/1
+
+# Expected log output:
+# /coffee/1;...CoffeeController.getById;200;-;86ms;86ms;0ms
+```
+
+## Monitoring
+
+### Performance Metrics Analysis
+
+**Parse log files to analyze performance:**
+```bash
+# Extract slow requests (>100ms)
+grep "PerformanceInteceptor" logs/application.log | \
+  awk -F';' '$5 > 100' | \
+  sort -t';' -k5 -nr
+
+# Top 10 slowest endpoints
+grep "PerformanceInteceptor" logs/application.log | \
+  awk -F';' '{print $1, $5}' | \
+  sort -k2 -nr | \
+  head -10
+```
+
+### Enable Debug Logging
+
+```properties
+# application.properties
+logging.level.tw.fengqing.spring.springbucks.waiter.controller=DEBUG
+```
+
+## Common Issues
+
+### Issue 1: ThreadLocal Memory Leak
+
+**Problem:**
+```
+java.lang.OutOfMemoryError: unable to create new native thread
+```
+
+**Solution:**
+```java
+// Always remove ThreadLocal in finally block
+@Override
+public void afterCompletion(...) {
+    try {
+        // Your logic
+    } finally {
+        stopWatch.remove();  // Critical!
+    }
+}
+```
+
+### Issue 2: Interceptor Not Executing
+
+**Problem:**
+Interceptor not being called
+
+**Solutions:**
+```java
+// 1. Check path patterns
+registry.addInterceptor(interceptor)
+        .addPathPatterns("/**");  // Match all paths
+
+// 2. Verify interceptor is registered
+@Override
+public void addInterceptors(InterceptorRegistry registry) {
+    // Make sure this method is called
+}
+
+// 3. Check if @Configuration is present
+@Configuration  // Don't forget this!
+public class WebMvcConfig implements WebMvcConfigurer {
+    // ...
+}
+```
+
+### Issue 3: Async Requests Not Logged
+
+**Problem:**
+Performance logs missing for async endpoints
+
+**Solution:**
+Use `AsyncHandlerInterceptor` instead:
+```java
+public class AsyncPerformanceInterceptor implements AsyncHandlerInterceptor {
+    
+    @Override
+    public void afterConcurrentHandlingStarted(...) {
+        // Handle async requests
+    }
+}
+```
+
+## Dependencies
+
+```xml
+<properties>
+    <java.version>21</java.version>
+    <joda-money.version>2.0.2</joda-money.version>
+</properties>
+
+<dependencies>
+    <!-- Spring Boot Web (includes Spring MVC) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    
+    <!-- Spring Data JPA -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    
+    <!-- Spring Cache -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+    
+    <!-- H2 Database -->
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    
+    <!-- Joda Money -->
+    <dependency>
+        <groupId>org.joda</groupId>
+        <artifactId>joda-money</artifactId>
+        <version>${joda-money.version}</version>
+    </dependency>
+    
+    <!-- Jackson for Hibernate -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-hibernate6</artifactId>
+    </dependency>
+    
+    <!-- Lombok -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+    </dependency>
+</dependencies>
+```
+
+## Best Practices Demonstrated
+
+1. **HandlerInterceptor**: Performance monitoring with custom interceptor
+2. **ThreadLocal Management**: Proper ThreadLocal cleanup to prevent memory leaks
+3. **Request Lifecycle**: Complete request tracking (pre/post/after)
+4. **Performance Logging**: Structured logging for performance analysis
+5. **MVC Configuration**: Proper interceptor registration and path patterns
+6. **Layered Architecture**: Clear separation of concerns (Controller/Service/Repository)
+7. **Data Validation**: Bean Validation for data integrity
 
 ## References
 
-- [Spring Boot Official Documentation](https://spring.io/projects/spring-boot)
-- [Spring Data JPA Reference Guide](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
-- [Hibernate Official Documentation](https://hibernate.org/orm/documentation/)
-- [Joda Money Documentation](https://www.joda.org/joda-money/)
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
 - [Spring MVC Interceptors](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/interceptors.html)
-
-## Important Notes & Best Practices
-
-### ⚠️ Important Reminders
-
-| Item | Description | Recommended Approach |
-|------|-------------|---------------------|
-| Database Connection | Production database configuration | Use external database (e.g., PostgreSQL, MySQL) |
-| Cache Strategy | Cache invalidation and updates | Implement cache update mechanism |
-| Performance Monitoring | Request performance tracking | Regularly review performance logs |
-| Data Validation | Input data validation | Use Bean Validation to ensure data correctness |
-| ThreadLocal Cleanup | Memory leak prevention | Always call `remove()` in `afterCompletion()` |
-
-### 🔒 Best Practice Guidelines
-
-- **Layered Architecture** - Strictly follow MVC architecture, maintain separation of concerns
-- **Data Validation** - Perform input validation at Controller layer to ensure data integrity
-- **Exception Handling** - Implement unified exception handling mechanism with user-friendly error messages
-- **Performance Optimization** - Use caching mechanisms wisely, avoid redundant database queries
-- **Interceptor Design** - Use HandlerInterceptor for cross-cutting concerns like permission verification and performance monitoring
-- **Code Quality** - Regularly refactor code to maintain readability and maintainability
-
-### 🛠️ Development Recommendations
-
-- **IDE Setup** - Recommended to use IntelliJ IDEA or Eclipse with Lombok plugin installed
-- **Debugging Tips** - Make good use of Spring Boot DevTools and hot reload features
-- **Testing Strategy** - Write unit tests and integration tests to ensure code quality
-- **Version Control** - Use Git for version control and follow Git Flow workflow
+- [HandlerInterceptor API](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerInterceptor.html)
+- [Spring Data JPA](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+- [Joda Money Documentation](https://www.joda.org/joda-money/)
 
 ## License
 
-This project is licensed under the MIT License. See LICENSE file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## About Us
 
-We specialize in Agile Project Management, IoT application development, and Domain-Driven Design (DDD). We enjoy combining advanced technologies with practical experience to create user-friendly and flexible software solutions.
+我們主要專注在敏捷專案管理、物聯網（IoT）應用開發和領域驅動設計（DDD）。喜歡把先進技術和實務經驗結合，打造好用又靈活的軟體解決方案。近來也積極結合 AI 技術，推動自動化工作流，讓開發與運維更有效率、更智慧。持續學習與分享，希望能一起推動軟體開發的創新和進步。
 
-## Contact Us
+## Contact
 
-- **Facebook Page**: [風清雲談 | Facebook](https://www.facebook.com/profile.php?id=61576838896062)
-- **LinkedIn**: [linkedin.com/in/chu-kuo-lung](https://www.linkedin.com/in/chu-kuo-lung)
-- **YouTube Channel**: [雲談風清 - YouTube](https://www.youtube.com/channel/UCXDqLTdCMiCJ1j8xGRfwEig)
-- **Blog**: [風清雲談](https://blog.fengqing.tw/)
-- **Email**: [fengqing.tw@gmail.com](mailto:fengqing.tw@gmail.com)
+**風清雲談** - 專注於敏捷專案管理、物聯網（IoT）應用開發和領域驅動設計（DDD）。
+
+- 🌐 官方網站：[風清雲談部落格](https://blog.fengqing.tw/)
+- 📘 Facebook：[風清雲談粉絲頁](https://www.facebook.com/profile.php?id=61576838896062)
+- 💼 LinkedIn：[Chu Kuo-Lung](https://www.linkedin.com/in/chu-kuo-lung)
+- 📺 YouTube：[雲談風清頻道](https://www.youtube.com/channel/UCXDqLTdCMiCJ1j8xGRfwEig)
+- 📧 Email：[fengqing.tw@gmail.com](mailto:fengqing.tw@gmail.com)
 
 ---
 
-**📅 Last Updated: October 28, 2025**  
-**👨‍💻 Maintained by: FengQing Team**
+**⭐ If this project helps you, please give it a star!**
