@@ -1,341 +1,418 @@
-# SpringBucks 咖啡廳服務系統 ⚡
+# SpringBucks Coffee Shop Service System ⚡
 
 [![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20-3.40.5brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Spring Data JPA](https://img.shields.io/badge/Spring%20a%20JPA-3.45lue.svg)](https://spring.io/projects/spring-data-jpa)
-[![H2 Database](https://img.shields.io/badge/H2%20Database-2.20.224yellow.svg)](https://www.h2database.com/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-3.4-blue.svg)](https://spring.io/projects/spring-data-jpa)
+[![H2 Database](https://img.shields.io/badge/H2%20Database-2.2.224-yellow.svg)](https://www.h2database.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 專案介紹
+## Project Overview
 
-SpringBucks 是一個基於 Spring Boot3.x 的咖啡廳管理系統，提供咖啡商品管理、訂單處理、以及 RESTful API 服務。此專案展示了現代 Spring Boot 微服務架構的最佳實踐，包含完整的資料持久化、快取機制、效能監控等功能。
+SpringBucks is a coffee shop management system built on Spring Boot 3.x, providing coffee product management, order processing, and RESTful API services. This project demonstrates modern Spring Boot microservice architecture best practices, including complete data persistence, caching mechanisms, and performance monitoring.
 
-### 🎯 核心功能
-- **咖啡商品管理** - 新增、查詢、更新咖啡商品資訊
-- **訂單處理系統** - 建立訂單、追蹤訂單狀態
-- **RESTful API** - 提供完整的 HTTP API 介面
-- **效能監控** - 內建請求效能攔截器
-- **資料持久化** - 使用 JPA/Hibernate 進行資料庫操作
-- **快取機制** - 整合 Spring Cache 提升系統效能
+### 🎯 Core Features
+- **Coffee Product Management** - Create, query, and update coffee product information
+- **Order Processing System** - Create orders and track order status
+- **RESTful API** - Comprehensive HTTP API interface
+- **Performance Monitoring** - Built-in request performance interceptor
+- **Data Persistence** - Database operations using JPA/Hibernate
+- **Caching Mechanism** - Integrated Spring Cache to enhance system performance
 
-### 💡 為什麼選擇此專案？
-- **現代化技術棧** - 採用 Spring Boot 3.x + Java21 + Jakarta EE
-- **完整的功能展示** - 涵蓋 Web、JPA、Cache、Validation 等核心功能
-- **最佳實踐** - 遵循 Spring Boot 官方建議的專案結構與配置
-- **易於學習** - 程式碼結構清晰，註解完整，適合學習 Spring Boot 開發
+### 💡 Why Choose This Project?
+- **Modern Technology Stack** - Built with Spring Boot 3.x + Java 21 + Jakarta EE
+- **Complete Feature Showcase** - Covers core functionalities including Web, JPA, Cache, Validation, etc.
+- **Best Practices** - Follows Spring Boot official recommended project structure and configuration
+- **Easy to Learn** - Clear code structure with comprehensive comments, suitable for learning Spring Boot development
 
-### 🚀 專案特色
+### 🚀 Project Highlights
 
-- **分層架構設計** - Controller、Service、Repository 清晰分離
-- **資料驗證機制** - 使用 Bean Validation 確保資料正確性
-- **自訂型別轉換** - 整合 Joda Money 處理貨幣計算
-- **效能優化** - 內建快取與效能監控機制
-- **請求攔截器** - 實作 HandlerInterceptor 進行效能監控與日誌記錄
-- **跨平台支援** - 使用 H2 記憶體資料庫，無需額外安裝
+- **Layered Architecture Design** - Clear separation of Controller, Service, and Repository layers
+- **Data Validation Mechanism** - Uses Bean Validation to ensure data correctness
+- **Custom Type Conversion** - Integrates Joda Money for currency calculations
+- **Performance Optimization** - Built-in caching and performance monitoring mechanisms
+- **Request Interceptor** - Implements HandlerInterceptor for performance monitoring and logging
+- **Cross-platform Support** - Uses H2 in-memory database, no additional installation required
 
-## 技術棧
+## Technology Stack
 
-### 核心框架
-- **Spring Boot 30.40.5** - 現代化 Java 應用程式框架
-- **Spring Data JPA** - 資料持久化與 ORM 框架
-- **Spring Web MVC** - Web 應用程式開發框架
-- **Spring Cache** - 快取抽象層與實作
+### Core Frameworks
+- **Spring Boot 3.4.5** - Modern Java application framework
+- **Spring Data JPA** - Data persistence and ORM framework
+- **Spring Web MVC** - Web application development framework
+- **Spring Cache** - Cache abstraction layer and implementation
 
-### 資料庫與工具
-- **H2Database** - 輕量級記憶體資料庫
-- **Hibernate6 JPA 實作，支援 Jakarta EE
-- **Joda Money** - 貨幣計算與處理函式庫
+### Database & Tools
+- **H2 Database** - Lightweight in-memory database
+- **Hibernate 6** - JPA implementation, supports Jakarta EE
+- **Joda Money** - Currency calculation and processing library
 
-### 開發工具與輔助
-- **Lombok** - 減少樣板程式碼，提升開發效率
-- **Jackson** - JSON/XML 序列化與反序列化
-- **Bean Validation** - 資料驗證框架
-- **Apache Commons Lang3** - 通用工具函式庫
+### Development Tools & Utilities
+- **Lombok** - Reduces boilerplate code, improves development efficiency
+- **Jackson** - JSON/XML serialization and deserialization
+- **Bean Validation** - Data validation framework
+- **Apache Commons Lang3** - Common utility library
 
-## 專案結構
+## Project Structure
 
 ```
-springbucks/
+springbucks2/
 ├── src/
 │   ├── main/
 │   │   ├── java/tw/fengqing/spring/springbucks/waiter/
-│   │   │   ├── controller/          # 控制器層 - 處理 HTTP 請求
+│   │   │   ├── WaiterServiceApplication.java      # Main application class
+│   │   │   ├── controller/          # Controller layer - HTTP request handling
 │   │   │   │   ├── CoffeeController.java
 │   │   │   │   ├── CoffeeOrderController.java
-│   │   │   │   └── request/         # 請求物件
-│   │   │   ├── service/             # 服務層 - 業務邏輯處理
+│   │   │   │   ├── PerformanceInteceptor.java     # Performance monitoring interceptor
+│   │   │   │   └── request/         # Request objects
+│   │   │   ├── service/             # Service layer - Business logic
 │   │   │   │   ├── CoffeeService.java
 │   │   │   │   └── CoffeeOrderService.java
-│   │   │   ├── repository/          # 資料存取層 - 資料庫操作
+│   │   │   ├── repository/          # Data access layer - Database operations
 │   │   │   │   ├── CoffeeRepository.java
 │   │   │   │   └── CoffeeOrderRepository.java
-│   │   │   ├── model/               # 實體模型 - 資料結構定義
+│   │   │   ├── model/               # Entity models - Data structure definition
 │   │   │   │   ├── Coffee.java
 │   │   │   │   ├── CoffeeOrder.java
 │   │   │   │   ├── BaseEntity.java
 │   │   │   │   ├── OrderState.java
 │   │   │   │   └── MoneyConverter.java
-│   │   │   └── support/             # 支援類別 - 工具與配置
-│   │   │       └── MoneySerializer.java
+│   │   │   └── support/             # Support classes - Utilities and configuration
+│   │   │       ├── MoneySerializer.java
+│   │   │       ├── MoneyDeserializer.java
+│   │   │       └── MoneyFormatter.java
 │   │   └── resources/
-│   │       ├── application.properties  # 應用程式配置
-│   │       ├── schema.sql              # 資料庫結構
-│   │       ├── data.sql                # 初始資料
-│   │       └── coffee.txt              # 咖啡資料檔案
-│   └── test/                        # 測試程式碼
-├── pom.xml                          # Maven 專案配置
-└── README.md                        # 專案說明文件
+│   │       ├── application.properties  # Application configuration
+│   │       ├── schema.sql              # Database schema
+│   │       ├── data.sql                # Initial data
+│   │       └── coffee.txt              # Coffee data file
+│   └── test/                        # Test code
+├── pom.xml                          # Maven project configuration
+└── README.md                        # Project documentation
 ```
 
-## 快速開始
+## Quick Start
 
-### 前置需求
-- **Java21** - 確保已安裝 JDK 21 或更新版本
-- **Maven36* - 專案建置工具
-- **IDE 建議** - IntelliJ IDEA、Eclipse 或 VS Code
+### Prerequisites
+- **Java 21** - Ensure JDK 21 or newer is installed
+- **Maven 3.6+** - Project build tool
+- **IDE Recommendation** - IntelliJ IDEA, Eclipse, or VS Code
 
-### 安裝與執行
-1**克隆此倉庫：**
+### Installation & Execution
+
+**1. Clone this repository:**
 ```bash
 git clone <repository-url>
-cd springbucks
-```2 **編譯專案：**
+cd springbucks2
+```
+
+**2. Compile the project:**
 ```bash
 mvn clean compile
 ```
 
-3*執行應用程式：**
+**3. Run the application:**
 ```bash
 mvn spring-boot:run
 ```
 
-4*驗證服務啟動：**
+**4. Verify service startup:**
 ```bash
-curl http://localhost:880/coffee/1
+curl http://localhost:8080/coffee/1
 ```
 
-### 打包部署
+### Package & Deploy
 ```bash
-# 建立可執行 JAR 檔案
+# Build executable JAR file
 mvn clean package
 
-# 執行 JAR 檔案
-java -jar target/waiter-service-00SNAPSHOT.jar
+# Run JAR file
+java -jar target/waiter-service-0.0.1-SNAPSHOT.jar
 ```
 
-## API 使用說明
+## API Usage Guide
 
-### 咖啡商品管理
+### Coffee Product Management
 
-#### 查詢所有咖啡
+#### Query All Coffees
 ```bash
-GET /coffee
+GET /coffee/
 ```
 
-#### 查詢特定咖啡
+#### Query Specific Coffee
 ```bash
 GET /coffee/{id}
 ```
 
-#### 新增咖啡
-```bash
-POST /coffee
-Content-Type: application/json
-[object Object] name": 美式咖啡",
-  "price: 50
+**Example Response:**
+```json
+{
+  "id": 1,
+  "createTime": "2025-10-28T10:39:00.812731+08:00",
+  "updateTime": "2025-10-28T10:39:00.812731+08:00",
+  "name": "espresso",
+  "price": 100.00
 }
 ```
 
-### 訂單管理
-
-#### 建立新訂單
+#### Create New Coffee
 ```bash
-POST /order
+POST /coffee/
 Content-Type: application/json
 
-[object Object]
-  customer": "張三",
- items": ["1", 2]
+{
+  "name": "Americano",
+  "price": 125.00
 }
 ```
 
-#### 查詢訂單
+### Order Management
+
+#### Create New Order
+```bash
+POST /order/
+Content-Type: application/json
+
+{
+  "customer": "John Doe",
+  "items": ["Espresso", "Latte"]
+}
+```
+
+#### Query Order
 ```bash
 GET /order/{id}
 ```
 
-## 進階說明
+## Advanced Configuration
 
-### 環境變數
+### Environment Variables
 ```properties
-# 資料庫配置（預設使用 H2 記憶體資料庫）
+# Database configuration (default uses H2 in-memory database)
 spring.datasource.url=jdbc:h2:mem:testdb
 spring.datasource.driverClassName=org.h2.Driver
 
-# JPA 配置
+# JPA configuration
 spring.jpa.hibernate.ddl-auto=none
 spring.jpa.show-sql=true
 spring.jpa.format-sql=true
 
-# 應用程式配置
-server.port=880pring.jackson.time-zone=Asia/Taipei
+# Application configuration
+server.port=8080
+spring.jackson.time-zone=Asia/Taipei
 ```
 
-### 設定檔說明
+### Configuration File Description
 
-#### application.properties 主要設定
+#### application.properties Main Settings
 ```properties
-# JPA 配置 - 控制資料庫結構生成
+# JPA configuration - Controls database structure generation
 spring.jpa.hibernate.ddl-auto=none
 
-# SQL 日誌 - 開發時顯示 SQL 語句
+# SQL logging - Display SQL statements during development
 spring.jpa.properties.hibernate.show_sql=true
 spring.jpa.properties.hibernate.format_sql=true
+
+# Error message display (development environment)
+server.error.include-message=always
+server.error.include-binding-errors=always
 ```
 
-### 快取配置
-專案已啟用 Spring Cache，預設使用記憶體快取。可透過以下方式自訂：
+### Cache Configuration
+The project has Spring Cache enabled, using in-memory cache by default. Can be customized as follows:
 ```java
 @Cacheable("coffee")
 public Coffee getCoffeeById(Long id) {
-    // 快取邏輯
+    // Cache logic
 }
 ```
 
-### Spring MVC 攔截器機制
+## Spring MVC Interceptor Mechanism
 
-專案實作了自訂的效能監控攔截器，用於追蹤請求處理時間與效能分析。
+The project implements a custom performance monitoring interceptor for tracking request processing time and performance analysis.
 
-#### 攔截器生命週期
+### Interceptor Lifecycle
 ```java
-public interface HandlerInterceptor [object Object]
-    // 方法執行前的預處理
+public interface HandlerInterceptor {
+    // Pre-processing before method execution
     boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler);
     
-    // 方法執行後，視圖渲染前的處理
+    // Post-processing after method execution, before view rendering
     void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView);
     
-    // 整個請求完成後的處理（包含視圖渲染）
+    // Processing after entire request completion (including view rendering)
     void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex);
 }
 ```
 
-#### 攔截器配置
+### Interceptor Configuration
 ```java
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
+@SpringBootApplication
+@EnableJpaRepositories
+@EnableCaching
+public class WaiterServiceApplication implements WebMvcConfigurer {
+
     @Override
-    public void addInterceptors(InterceptorRegistry registry) [object Object]      registry.addInterceptor(new PerformanceInterceptor())
-                .addPathPatterns("/coffee/**",/order/**");
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new PerformanceInteceptor())
+                .addPathPatterns("/coffee/**")
+                .addPathPatterns("/order/**");
     }
 }
 ```
 
-#### 效能監控攔截器實作
+### Performance Monitoring Interceptor Implementation
 ```java
-@Component
-public class PerformanceInterceptor implements HandlerInterceptor {
-    
+@Slf4j
+public class PerformanceInteceptor implements HandlerInterceptor {
+    private ThreadLocal<StopWatch> stopWatch = new ThreadLocal<>();
+
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)[object Object]
-        // 記錄請求開始時間
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        request.setAttribute("stopWatch", stopWatch);
-        return true; // 返回 true 繼續處理，false 則終止請求
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        // Record request start time
+        StopWatch sw = new StopWatch();
+        stopWatch.set(sw);
+        sw.start();
+        return true; // Return true to continue, false to terminate request
     }
     
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) [object Object]        // 計算總處理時間並記錄日誌
-        StopWatch stopWatch = (StopWatch) request.getAttribute("stopWatch");
-        stopWatch.stop();
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+        stopWatch.get().stop();
+        stopWatch.get().start();
+    }
+    
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        // Calculate total processing time and log
+        StopWatch sw = stopWatch.get();
+        sw.stop();
         
-        log.info(請求處理摘要 - URL: {}, 方法: {}, 狀態: [object Object]}, 總耗時: {}ms, 方法耗時: {}ms,           request.getRequestURI(),
-                handler.getClass().getSimpleName(),
+        String method = handler.getClass().getSimpleName();
+        if (handler instanceof HandlerMethod) {
+            String beanType = ((HandlerMethod) handler).getBeanType().getName();
+            String methodName = ((HandlerMethod) handler).getMethod().getName();
+            method = beanType + "." + methodName;
+        }
+        
+        long totalTime = sw.getTotalTimeMillis();
+        long lastTaskTime = 0;
+        if (sw.getTaskCount() > 0) {
+            StopWatch.TaskInfo[] taskInfos = sw.getTaskInfo();
+            lastTaskTime = taskInfos[taskInfos.length - 1].getTimeMillis();
+        }
+        long processingTime = totalTime - lastTaskTime;
+        
+        log.info("{};{};{};{};{}ms;{}ms;{}ms", 
+                request.getRequestURI(),
+                method,
                 response.getStatus(),
-                stopWatch.getTotalTimeMillis(),
-                stopWatch.getLastTaskTimeMillis());
+                ex == null ? "-" : ex.getClass().getSimpleName(),
+                totalTime,
+                processingTime,
+                lastTaskTime);
+        
+        stopWatch.remove();
     }
 }
 ```
 
-#### 攔截器使用場景
-- **權限驗證** - 在 `preHandle` 中檢查用戶權限
-- **效能監控** - 記錄請求處理時間與效能指標
-- **日誌記錄** - 記錄請求詳情與處理結果
-- **快取處理** - 在 `postHandle` 中更新快取資料
-- **異常處理** - 在 `afterCompletion` 中統一處理異常
+**Example Log Output:**
+```log
+2025-10-28T10:40:36.538+08:00  INFO 72109 --- [nio-8080-exec-2] t.f.s.s.w.c.PerformanceInteceptor        : /coffee/1;tw.fengqing.spring.springbucks.waiter.controller.CoffeeController.getById;200;-;86ms;86ms;0ms
+```
 
-#### 注意事項
-- **非同步請求** - 非同步處理不會執行 `postHandle` 和 `afterCompletion`
-- **攔截器順序** - 可透過 `order()` 方法設定攔截器執行順序
-- **路徑匹配** - 支援 Ant 風格的路徑模式匹配
-- **效能影響** - 攔截器會增加少量效能開銷，建議合理使用
+**Log Field Explanation:**
+- `/coffee/1`: Request URL
+- `CoffeeController.getById`: Executed method
+- `200`: HTTP status code
+- `-`: No exception (displays exception class name if any)
+- `86ms`: Total time
+- `86ms`: Controller execution time
+- `0ms`: View rendering time
 
-## 開發指南
+### Interceptor Use Cases
+- **Permission Verification** - Check user permissions in `preHandle`
+- **Performance Monitoring** - Record request processing time and performance metrics
+- **Logging** - Record request details and processing results
+- **Cache Handling** - Update cache data in `postHandle`
+- **Exception Handling** - Unified exception handling in `afterCompletion`
 
-### 新增功能步驟1. **建立實體模型** - 在 `model` 包下定義資料結構
-2 **建立 Repository** - 在 `repository` 包下定義資料存取介面3. **建立 Service** - 在 `service` 包下實作業務邏輯
-4 **建立 Controller** - 在 `controller` 包下定義 API 端點
-5 **撰寫測試** - 確保功能正確性
+### Important Notes
+- **Async Requests** - Async processing won't execute `postHandle` and `afterCompletion`
+- **Interceptor Order** - Set execution order via `order()` method
+- **Path Matching** - Supports Ant-style path pattern matching
+- **Performance Impact** - Interceptors add minor performance overhead, use wisely
+- **ThreadLocal Cleanup** - Must call `remove()` to prevent memory leaks
 
-### 程式碼規範
-- **命名規範** - 使用駝峰命名法，類別首字母大寫
-- **註解規範** - 重要邏輯需加上清楚註解
-- **分層架構** - 嚴格遵守 Controller → Service → Repository 的呼叫順序
-- **異常處理** - 使用統一的異常處理機制
+## Development Guide
 
-## 參考資源
+### Steps to Add New Features
+1. **Create Entity Model** - Define data structure in `model` package
+2. **Create Repository** - Define data access interface in `repository` package
+3. **Create Service** - Implement business logic in `service` package
+4. **Create Controller** - Define API endpoints in `controller` package
+5. **Write Tests** - Ensure functionality correctness
 
--Spring Boot 官方文件](https://spring.io/projects/spring-boot)
--Spring Data JPA 參考指南](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
-- [Hibernate 官方文件](https://hibernate.org/orm/documentation/)
-- [Joda Money 文件](https://www.joda.org/joda-money/)
+### Code Conventions
+- **Naming Convention** - Use camelCase, capitalize class names
+- **Documentation** - Add clear comments for important logic
+- **Layered Architecture** - Strictly follow Controller → Service → Repository call sequence
+- **Exception Handling** - Use unified exception handling mechanism
 
-## 注意事項與最佳實踐
+## References
 
-### ⚠️ 重要提醒
+- [Spring Boot Official Documentation](https://spring.io/projects/spring-boot)
+- [Spring Data JPA Reference Guide](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+- [Hibernate Official Documentation](https://hibernate.org/orm/documentation/)
+- [Joda Money Documentation](https://www.joda.org/joda-money/)
+- [Spring MVC Interceptors](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/interceptors.html)
 
-| 項目 | 說明 | 建議做法 |
-|------|------|----------|
-| 資料庫連線 | 生產環境資料庫配置 | 使用外部資料庫（如 PostgreSQL、MySQL） |
-| 快取策略 | 快取失效與更新 | 實作快取更新機制 |
-| 效能監控 | 請求效能追蹤 | 定期檢查效能日誌 |
-| 資料驗證 | 輸入資料驗證 | 使用 Bean Validation 確保資料正確性 |
+## Important Notes & Best Practices
 
-### 🔒 最佳實踐指南
+### ⚠️ Important Reminders
 
-- **分層架構** - 嚴格遵守 MVC 架構，保持各層職責分離
-- **資料驗證** - 在 Controller 層進行輸入驗證，確保資料完整性
-- **異常處理** - 實作統一的異常處理機制，提供友善的錯誤訊息
-- **效能優化** - 合理使用快取機制，避免重複的資料庫查詢
-- **攔截器設計** - 使用 HandlerInterceptor 進行橫切關注點處理，如權限驗證、效能監控
-- **程式碼品質** - 定期重構程式碼，保持程式碼的可讀性與可維護性
+| Item | Description | Recommended Approach |
+|------|-------------|---------------------|
+| Database Connection | Production database configuration | Use external database (e.g., PostgreSQL, MySQL) |
+| Cache Strategy | Cache invalidation and updates | Implement cache update mechanism |
+| Performance Monitoring | Request performance tracking | Regularly review performance logs |
+| Data Validation | Input data validation | Use Bean Validation to ensure data correctness |
+| ThreadLocal Cleanup | Memory leak prevention | Always call `remove()` in `afterCompletion()` |
 
-### 🛠️ 開發建議
+### 🔒 Best Practice Guidelines
 
-- **IDE 設定** - 建議使用 IntelliJ IDEA 或 Eclipse，並安裝 Lombok 外掛
-- **除錯技巧** - 善用 Spring Boot 的開發工具與熱重載功能
-- **測試策略** - 撰寫單元測試與整合測試，確保程式碼品質
-- **版本控制** - 使用 Git 進行版本控制，並遵循 Git Flow 工作流程
+- **Layered Architecture** - Strictly follow MVC architecture, maintain separation of concerns
+- **Data Validation** - Perform input validation at Controller layer to ensure data integrity
+- **Exception Handling** - Implement unified exception handling mechanism with user-friendly error messages
+- **Performance Optimization** - Use caching mechanisms wisely, avoid redundant database queries
+- **Interceptor Design** - Use HandlerInterceptor for cross-cutting concerns like permission verification and performance monitoring
+- **Code Quality** - Regularly refactor code to maintain readability and maintainability
 
-## 授權說明
+### 🛠️ Development Recommendations
 
-本專案採用 MIT 授權條款，詳見 LICENSE 檔案。
+- **IDE Setup** - Recommended to use IntelliJ IDEA or Eclipse with Lombok plugin installed
+- **Debugging Tips** - Make good use of Spring Boot DevTools and hot reload features
+- **Testing Strategy** - Write unit tests and integration tests to ensure code quality
+- **Version Control** - Use Git for version control and follow Git Flow workflow
 
-## 關於我們
+## License
 
-我們主要專注在敏捷專案管理、物聯網（IoT）應用開發和領域驅動設計（DDD）。喜歡把先進技術和實務經驗結合，打造好用又靈活的軟體解決方案。
+This project is licensed under the MIT License. See LICENSE file for details.
 
-## 聯繫我們
+## About Us
 
-- **FB 粉絲頁**：[風清雲談 | Facebook](https://www.facebook.com/profile.php?id=61576838896062)
-- **LinkedIn**：[linkedin.com/in/chu-kuo-lung](https://www.linkedin.com/in/chu-kuo-lung)
-- **YouTube 頻道**：[雲談風清 - YouTube](https://www.youtube.com/channel/UCXDqLTdCMiCJ1j8xGRfwEig)
-- **風清雲談 部落格**：[風清雲談](https://blog.fengqing.tw/)
-- **電子郵件**：[fengqing.tw@gmail.com](mailto:fengqing.tw@gmail.com)
+We specialize in Agile Project Management, IoT application development, and Domain-Driven Design (DDD). We enjoy combining advanced technologies with practical experience to create user-friendly and flexible software solutions.
+
+## Contact Us
+
+- **Facebook Page**: [風清雲談 | Facebook](https://www.facebook.com/profile.php?id=61576838896062)
+- **LinkedIn**: [linkedin.com/in/chu-kuo-lung](https://www.linkedin.com/in/chu-kuo-lung)
+- **YouTube Channel**: [雲談風清 - YouTube](https://www.youtube.com/channel/UCXDqLTdCMiCJ1j8xGRfwEig)
+- **Blog**: [風清雲談](https://blog.fengqing.tw/)
+- **Email**: [fengqing.tw@gmail.com](mailto:fengqing.tw@gmail.com)
 
 ---
 
-**📅 最後更新：2025年7月17日  
-**👨‍💻 維護者：風清雲談團隊** 
+**📅 Last Updated: October 28, 2025**  
+**👨‍💻 Maintained by: FengQing Team**
